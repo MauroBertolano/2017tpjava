@@ -108,7 +108,7 @@ public class ABMCPersonaConsola {
 		String rta = s.nextLine();
 		switch (rta) {
 		case "1":
-			this.mostrar(ctrl.getPersonas());
+			this.mostrar(ctrl.getAll());
 
 			break;
 		case "2":

@@ -2,11 +2,12 @@ package logica;
 
 import java.util.ArrayList;
 
-
+import data.DataPersona;
 import entidades.Persona;
 
 public class Controlador {
 	private ArrayList<Persona> pers;
+	DataPersona dataPer= new DataPersona();
 
 	public Controlador() {
 		pers = new ArrayList<Persona>();
@@ -48,4 +49,8 @@ public class Controlador {
 		}
 		return null;
 	}
+	public ArrayList<Persona> getAll(){
+		return dataPer.getAll();
+}
+	
 }
