@@ -51,9 +51,6 @@ public class ABMCInternal extends JInternalFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public ABMCInternal() {
 		setClosable(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
