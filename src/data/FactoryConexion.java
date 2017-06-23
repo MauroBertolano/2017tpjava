@@ -5,7 +5,7 @@ public class FactoryConexion {
         private static FactoryConexion instancia;
        
         private Connection conn;
-       
+        private int cantConn=0;
         private FactoryConexion(){
             try {
                 Class.forName("com.mysql.jdbc.Driver()");
@@ -22,11 +22,22 @@ public class FactoryConexion {
         }
         public Connection getConn(){
             try {
+            	if(conn==null || conn.isClosed()){
                 conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/java2017?user=java&password=java");
-                
+            	}
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+            cantConn++;
 			return conn;
+        }
+        public void releaseConn(){
+        	try {
+        		cantConn--;
+        		if (cantConn==0){
+				conn.close();}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
         }
 }

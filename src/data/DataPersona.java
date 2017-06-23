@@ -11,6 +11,8 @@ public class DataPersona {
         Statement stmt = FactoryConexion.getInstancia().getConn().createStatement();
         ResultSet rs = stmt.executeQuery("select * from persona");
         if(rs!=null){
+        	// rs conjunto fila y columnas, rs.next mueve fila; ResultSet conjunto de resultados
+        	// ORM herramientas que lo usan solo -> hybernate(mas usado de Java)
             while(rs.next()){
                 Persona p = new Persona();
                 p.setNombre(rs.getString("nombre"));
@@ -23,6 +25,7 @@ public class DataPersona {
         } catch(SQLException e){
             e.printStackTrace();
         }
+        FactoryConexion.getInstancia().releaseConn();
         return pers;
     }
 }
