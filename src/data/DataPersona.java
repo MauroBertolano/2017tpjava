@@ -27,6 +27,7 @@ public class DataPersona {
         }
         FactoryConexion.getInstancia().releaseConn();
         return pers;
+    }
         
         public Persona getByDni(Persona per){
         	Persona p = null;
@@ -54,4 +55,3 @@ public class DataPersona {
         	return p;
         }
     }
-}
