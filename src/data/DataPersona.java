@@ -27,5 +27,31 @@ public class DataPersona {
         }
         FactoryConexion.getInstancia().releaseConn();
         return pers;
+        
+        public Persona getByDni(Persona per){
+        	Persona p = null;
+        	PreparedStatement stmt = null;
+        	ResultSet rs= null;
+        	try {
+        		//el ?  para detectar  ....; si pone ' agrega \' para no concatenar
+        	stmt= FactoryConexion.getInstancia().getConn().prepareStatement("select nombre, apelido, dni, habilitado from persona where dni=?");
+            stmt.setString(1, per.getDni());
+            rs = stmt.executeQuery();
+            if (rs!=null && rs.next()){
+            		p=new Persona();
+            		p.setNombre(rs.getString("nombre"));
+                    p.setApellido(rs.getString("apellido"));
+                    p.setDni(rs.getString("dni"));
+                    p.setHabilitado(rs.getBoolean("habilitado"));
+            	}
+        	} catch (SQLException e){
+        		e.printStackTrace();
+        	}
+        	
+        	if(rs!=null) rs.close();
+        	if(stmt!=null) stmt.close();
+        	FactoryConexion.getInstancia().releaseConn();
+        	return p;
+        }
     }
 }

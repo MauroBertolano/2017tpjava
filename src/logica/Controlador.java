@@ -10,6 +10,7 @@ public class Controlador {
 	DataPersona dataPer= new DataPersona();
 
 	public Controlador() {
+		
 		pers = new ArrayList<Persona>();
 		pers.add(new Persona("Juan", "Perez", "12121212", true));
 		pers.add(new Persona("Fulano", "De Tal", "13131313", true));
@@ -20,13 +21,14 @@ public class Controlador {
 	}
 
 	public Persona getByDni(Persona p) {
-		String dni = p.getDni();
+		/*String dni = p.getDni();
 		for (int i = 0; i < this.pers.size(); i++) {
 			if (pers.get(i).getDni().equals(dni)) {
 				return pers.get(i);
 			}
 		}
-		return 	null;
+		return 	null;*/
+		return dataPer.getByDni(p);
 	}
 
 	public void borrar(Persona p) {

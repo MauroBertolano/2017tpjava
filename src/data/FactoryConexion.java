@@ -2,13 +2,20 @@ package data;
 import java.sql.*;
 public class FactoryConexion {
        
+        private String driver="com.mysql.jdbc.Driver()";
+        private String host="localhost";
+        private String port="3306";
+        private String user="java";
+        private String password="java";
+        private String db="java2017";
         private static FactoryConexion instancia;
        
         private Connection conn;
         private int cantConn=0;
+        //Singleton constructor privado y variable static privada y metodo statico para obtener unica instancia
         private FactoryConexion(){
             try {
-                Class.forName("com.mysql.jdbc.Driver()");
+                Class.forName(driver);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
@@ -23,7 +30,8 @@ public class FactoryConexion {
         public Connection getConn(){
             try {
             	if(conn==null || conn.isClosed()){
-                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/java2017?user=java&password=java");
+               //parametrizado
+                conn = DriverManager.getConnection("jdbc:mysql://"+host+":"+port+"/"+db+"?user="+user+"&password="+password);
             	}
             } catch (SQLException e) {
                 e.printStackTrace();
