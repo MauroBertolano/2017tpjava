@@ -53,7 +53,7 @@ public class ABMCInternal extends JInternalFrame {
 
 	public ABMCInternal() {
 		setClosable(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JInternalFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 295, 230);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

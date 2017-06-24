@@ -35,7 +35,7 @@ public class DataPersona {
         	ResultSet rs= null;
         	try {
         		//el ?  para detectar  ....; si pone ' agrega \' para no concatenar
-        	stmt= FactoryConexion.getInstancia().getConn().prepareStatement("select nombre, apelido, dni, habilitado from persona where dni=?");
+        	stmt= FactoryConexion.getInstancia().getConn().prepareStatement("select nombre, apellido, dni, habilitado from persona where dni=?");
             stmt.setString(1, per.getDni());
             rs = stmt.executeQuery();
             if (rs!=null && rs.next()){
@@ -49,9 +49,13 @@ public class DataPersona {
         		e.printStackTrace();
         	}
         	
-        	if(rs!=null) rs.close();
-        	if(stmt!=null) stmt.close();
-        	FactoryConexion.getInstancia().releaseConn();
+        	try {
+				if(rs!=null) rs.close();
+				if(stmt!=null) stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
         	return p;
         }
     }
