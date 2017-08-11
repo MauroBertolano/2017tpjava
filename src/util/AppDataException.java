@@ -1,14 +1,8 @@
 package util;
 
-import javax.swing.JOptionPane;
-
-import ui.ABMCInternal;
-
 public class AppDataException extends Exception{
 	private Throwable innerException;
 	private String message;
-	private ABMCInternal asd;
-	
 	
 	public String getMessage() {
 		return message;
