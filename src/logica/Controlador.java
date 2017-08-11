@@ -10,9 +10,10 @@ public class Controlador {
 	DataPersona dataPer= new DataPersona();
 	ArrayList<Persona> pers=new ArrayList<Persona>();
 	
-	public void add(Persona p) {         //aumenta el id si aunque no se agregue nadie 
+	public void add(Persona p) {         //aumenta el id si aunque no se agregue nadie ----- mostrar mensaje de error
 		try {
-			this.dataPer.add(p);
+			if(this.dataPer.getByDni(p) == null){			
+			this.dataPer.add(p);}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
