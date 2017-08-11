@@ -5,6 +5,8 @@ public class Persona {
 	private String apellido;
 	private String dni;
 	private Boolean habilitado;
+	private String user,psw;
+	private int id;
 	
 	public Persona(String nombre, String apellido, String dni, Boolean habilitado) {
 		super();
@@ -13,6 +15,31 @@ public class Persona {
 		this.dni = dni;
 		this.habilitado = habilitado;
 	}
+	
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	public String getPsw() {
+		return psw;
+	}
+
+	public void setPsw(String psw) {
+		this.psw = psw;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public Persona() {
 		super();
 	}
