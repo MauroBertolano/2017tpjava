@@ -34,6 +34,7 @@ public class ABMCInternal extends JInternalFrame {
 	private JTextField txtApellido;
 	private JTextField txtDni;
 	private JCheckBox chckHabilitado;
+	private JLabel lblId2;
 
 	/**
 	 * Launch the application.
@@ -99,68 +100,86 @@ public class ABMCInternal extends JInternalFrame {
 			}
 		});
 		JButton btnModificar = new JButton("Modificar");
+		btnModificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnModificar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				modificarClick();
 			}
 		});
+		
+		JLabel lblId = new JLabel("ID");
+		
+		lblId2 = new JLabel("");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(lblDni)
-									.addGap(38)
-									.addComponent(txtDni, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(btnBuscar))
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-									.addGroup(gl_contentPane.createSequentialGroup()
-										.addComponent(lblApellido)
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(txtApellido, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-									.addGroup(gl_contentPane.createSequentialGroup()
-										.addComponent(lblNombre)
-										.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
-						.addComponent(chckHabilitado)
+					.addContainerGap()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(btnAgregar)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnEliminar)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnModificar)))
-					.addContainerGap(42, Short.MAX_VALUE))
+							.addComponent(btnModificar)
+							.addContainerGap(32, Short.MAX_VALUE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(lblNombre)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(132))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblApellido)
+								.addComponent(lblDni)
+								.addComponent(lblId))
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+								.addComponent(lblId2, Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_contentPane.createSequentialGroup()
+											.addComponent(txtDni, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.UNRELATED)
+											.addComponent(btnBuscar))
+										.addComponent(txtApellido, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addGap(56))))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(chckHabilitado)
+							.addContainerGap(186, Short.MAX_VALUE))))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblId)
+						.addComponent(lblId2))
+					.addGap(5)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(txtDni, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblDni)
-						.addComponent(btnBuscar)
-						.addComponent(txtDni, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(btnBuscar))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblApellido)
-						.addComponent(txtApellido, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(txtApellido, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblApellido))
+					.addGap(8)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNombre))
-					.addGap(18)
-					.addComponent(chckHabilitado)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(chckHabilitado)
+					.addGap(9)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnAgregar)
 						.addComponent(btnEliminar)
 						.addComponent(btnModificar))
-					.addContainerGap(94, Short.MAX_VALUE))
+					.addGap(6))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
@@ -188,6 +207,7 @@ public class ABMCInternal extends JInternalFrame {
 		this.txtApellido.setText(p.getApellido());
 		this.txtDni.setText(p.getDni());
 		this.chckHabilitado.setSelected(p.getHabilitado());
+		this.lblId2.setText(Integer.toString(p.getId()));
 	}
 	private Persona mapearDeForm(){
 		Persona p = new Persona();

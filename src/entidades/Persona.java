@@ -8,6 +8,16 @@ public class Persona {
 	private String user,psw;
 	private int id;
 	
+
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public Persona(String nombre, String apellido, String dni, Boolean habilitado) {
 		super();
 		this.nombre = nombre;
@@ -31,15 +41,6 @@ public class Persona {
 	public void setPsw(String psw) {
 		this.psw = psw;
 	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public Persona() {
 		super();
 	}

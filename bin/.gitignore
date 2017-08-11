@@ -1,6 +1,5 @@
-/data/
-/entidades/
-/lib/
-/logica/
 /ui/
+/entidades/
+/data/
+/logica/
 /util/

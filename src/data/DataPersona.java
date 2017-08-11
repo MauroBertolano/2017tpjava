@@ -40,11 +40,12 @@ public class DataPersona {
 		try {
 			// el ? para detectar ....; si pone ' agrega \' para no concatenar
 			stmt = FactoryConexion.getInstancia().getConn()
-					.prepareStatement("select nombre, apellido, dni, habilitado from persona where dni=?");
+					.prepareStatement("select id, nombre, apellido, dni, habilitado from persona where dni=?");
 			stmt.setString(1, per.getDni());
 			rs = stmt.executeQuery();
 			if (rs != null && rs.next()) {
 				p = new Persona();
+				p.setId(rs.getInt("id"));
 				p.setNombre(rs.getString("nombre"));
 				p.setApellido(rs.getString("apellido"));
 				p.setDni(rs.getString("dni"));
@@ -82,7 +83,7 @@ public class DataPersona {
 			if (keyResultSet != null && keyResultSet.next()) {
 				p.setId(keyResultSet.getInt(1));
 			}
-		} catch (SQLException /*| AppDataException*/ e) {
+		} catch (SQLException /*| AppDataException*/ e) {			
 			throw e;
 		}
 		try {

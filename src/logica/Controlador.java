@@ -6,28 +6,19 @@ import data.DataPersona;
 import entidades.Persona;
 
 public class Controlador {
-	private ArrayList<Persona> pers;
+	
 	DataPersona dataPer= new DataPersona();
-
-	public Controlador() {
-		
-		pers = new ArrayList<Persona>();
-		pers.add(new Persona("Juan", "Perez", "12121212", true));
-		pers.add(new Persona("Fulano", "De Tal", "13131313", true));
-	}
-
-	public void add(Persona p) {
-		this.pers.add(p);
+	ArrayList<Persona> pers=new ArrayList<Persona>();
+	
+	public void add(Persona p) {         //aumenta el id si aunque no se agregue nadie 
+		try {
+			this.dataPer.add(p);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public Persona getByDni(Persona p) {
-		/*String dni = p.getDni();
-		for (int i = 0; i < this.pers.size(); i++) {
-			if (pers.get(i).getDni().equals(dni)) {
-				return pers.get(i);
-			}
-		}
-		return 	null;*/
 		return dataPer.getByDni(p);
 	}
 
