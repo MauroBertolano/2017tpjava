@@ -184,18 +184,34 @@ public class ABMCInternal extends JInternalFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 	protected void buscarClick(){
-		this.mapearAForm(ctrl.getByDni(this.mapearDeForm()));
+			try {
+				this.mapearAForm(ctrl.getByDni(this.mapearDeForm()));
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(this, "Error al buscar la persona");
+			}
 	}
 	protected void agregarClick() {
-		ctrl.add(this.mapearDeForm());
+		try {
+			ctrl.add(this.mapearDeForm());
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, "Error al agregar la persona");
+		}
 	}
 
 	protected void eliminarClick() {
-		ctrl.borrar(this.mapearDeForm());
+			try {
+				ctrl.borrar(this.mapearDeForm());
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(this, "Error al eliminar la persona");
+			}
 	}
 
 	protected void modificarClick() {
-		ctrl.actualiza(this.mapearDeForm());
+		try {
+			ctrl.actualiza(this.mapearDeForm());
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, "Error al actualizar la persona");
+		}
 
 	}
 	private void mapearAForm(Persona p){
@@ -217,5 +233,4 @@ public class ABMCInternal extends JInternalFrame {
 		p.setHabilitado(this.chckHabilitado.isSelected());
 		return p;
 	}
-
 }

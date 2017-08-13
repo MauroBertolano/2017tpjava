@@ -33,7 +33,7 @@ public class DataPersona {
 		return pers;
 	}
 
-	public Persona getByDni(Persona per) {
+	public Persona getByDni(Persona per)throws Exception {
 		Persona p = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -51,8 +51,8 @@ public class DataPersona {
 				p.setDni(rs.getString("dni"));
 				p.setHabilitado(rs.getBoolean("habilitado"));
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			throw e;
 		}
 
 		try {

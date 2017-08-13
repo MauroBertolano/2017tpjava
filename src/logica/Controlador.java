@@ -10,26 +10,25 @@ public class Controlador {
 	DataPersona dataPer= new DataPersona();
 	ArrayList<Persona> pers=new ArrayList<Persona>();
 	
-	public void add(Persona p) {         //aumenta el id si aunque no se agregue nadie ----- mostrar mensaje de error
-		try {
-			if(this.dataPer.getByDni(p) == null){			
-			this.dataPer.add(p);}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public void add(Persona p) throws Exception  {         //aumenta el id si aunque no se agregue nadie ----- mostrar mensaje de error	
+				this.dataPer.add(p);
 	}
 
-	public Persona getByDni(Persona p) {
-		return dataPer.getByDni(p);
+	public Persona getByDni(Persona p)throws Exception{
+				return dataPer.getByDni(p);
 	}
 
-	public void borrar(Persona p) {
+	public void borrar(Persona p)throws Exception {
 		pers.remove(this.getByDni(p));
 	}
 
-	public void actualiza(Persona p) {
+	public void actualiza(Persona p)throws Exception {
 		this.borrar(p);
-		this.add(p);
+		try {
+			this.add(p);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	public ArrayList<Persona> getPersonas(){
 		return pers;
