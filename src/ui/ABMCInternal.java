@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import entidades.Persona;
 import logica.Controlador;
+import util.PersonaExistente;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -193,7 +194,10 @@ public class ABMCInternal extends JInternalFrame {
 	protected void agregarClick() {
 		try {
 			ctrl.add(this.mapearDeForm());
-		} catch (Exception e) {
+		} catch (PersonaExistente e) {
+			JOptionPane.showMessageDialog(this,e.getMessage());
+		}
+		catch (Exception e) {
 			JOptionPane.showMessageDialog(this, "Error al agregar la persona");
 		}
 	}

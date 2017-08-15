@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.sql.*;
 import entidades.Persona;
 import util.AppDataException;
+import util.PersonaExistente;
 
 public class DataPersona {
 	
@@ -54,7 +55,6 @@ public class DataPersona {
 		} catch (Exception e) {
 			throw e;
 		}
-
 		try {
 			if (rs != null)
 				rs.close();

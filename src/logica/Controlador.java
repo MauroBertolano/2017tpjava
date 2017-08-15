@@ -4,15 +4,19 @@ import java.util.ArrayList;
 
 import data.DataPersona;
 import entidades.Persona;
+import util.PersonaExistente;
 
 public class Controlador {
 	
 	DataPersona dataPer= new DataPersona();
 	ArrayList<Persona> pers=new ArrayList<Persona>();
 	
-	public void add(Persona p) throws Exception  {         //aumenta el id si aunque no se agregue nadie ----- mostrar mensaje de error	
-				this.dataPer.add(p);
-	}
+	public void add(Persona p) throws Exception  {
+		if(this.dataPer.getByDni(p)==null){
+		this.dataPer.add(p);}
+		else{
+			throw new PersonaExistente("Ya existe la persona");}
+		}
 
 	public Persona getByDni(Persona p)throws Exception{
 				return dataPer.getByDni(p);
