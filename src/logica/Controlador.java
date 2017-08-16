@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import data.DataPersona;
 import entidades.Persona;
 import util.PersonaExistente;
+import util.PersonaInvalida;
 
 public class Controlador {
 	
@@ -12,6 +13,8 @@ public class Controlador {
 	ArrayList<Persona> pers=new ArrayList<Persona>();
 	
 	public void add(Persona p) throws Exception  {
+		if(p.getDni().equals("") | p.getApellido().equals("") | p.getNombre().equals("") ){
+			throw new PersonaInvalida("Valores invalidos");}
 		if(this.dataPer.getByDni(p)==null){
 		this.dataPer.add(p);}
 		else{
@@ -23,7 +26,7 @@ public class Controlador {
 	}
 
 	public void borrar(Persona p)throws Exception {
-		pers.remove(this.getByDni(p));
+		dataPer.remove(this.dataPer.getByDni(p));
 	}
 
 	public void actualiza(Persona p)throws Exception {

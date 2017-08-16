@@ -5,6 +5,7 @@ import java.sql.*;
 import entidades.Persona;
 import util.AppDataException;
 import util.PersonaExistente;
+import util.PersonaInvalida;
 
 public class DataPersona {
 	
@@ -52,7 +53,7 @@ public class DataPersona {
 				p.setDni(rs.getString("dni"));
 				p.setHabilitado(rs.getBoolean("habilitado"));
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			throw e;
 		}
 		try {
@@ -99,15 +100,21 @@ public class DataPersona {
 
 	public void remove(Persona p)throws Exception{
     		PreparedStatement stmt=null;
-    		ResultSet keyResultSet=null;
     		try {
     			stmt=FactoryConexion.getInstancia().getConn()
     					.prepareStatement(
-    					"delete from personas where dni=?"
+    					"delete from persona where dni=?"
     							
     					);
     			stmt.setString(1, p.getDni());
     			stmt.executeUpdate();   	
+    		} catch (SQLException e) {
+    			e.printStackTrace();
+    		}
+    		try {
+    			if (stmt != null)
+    				stmt.close();
+    			FactoryConexion.getInstancia().releaseConn();
     		} catch (SQLException e) {
     			e.printStackTrace();
     		}

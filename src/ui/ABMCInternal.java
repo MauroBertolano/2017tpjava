@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import entidades.Persona;
 import logica.Controlador;
 import util.PersonaExistente;
+import util.PersonaInvalida;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -25,6 +26,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 
 public class ABMCInternal extends JInternalFrame {
 	
@@ -194,10 +196,11 @@ public class ABMCInternal extends JInternalFrame {
 	protected void agregarClick() {
 		try {
 			ctrl.add(this.mapearDeForm());
-		} catch (PersonaExistente e) {
+		} catch (PersonaInvalida e) {
 			JOptionPane.showMessageDialog(this,e.getMessage());
-		}
-		catch (Exception e) {
+		} catch (PersonaExistente e) {
+			JOptionPane.showMessageDialog(this,e.getMessage());		
+		}  catch (Exception e) {
 			JOptionPane.showMessageDialog(this, "Error al agregar la persona");
 		}
 	}
