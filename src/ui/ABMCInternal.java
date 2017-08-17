@@ -38,6 +38,7 @@ public class ABMCInternal extends JInternalFrame {
 	private JTextField txtDni;
 	private JCheckBox chckHabilitado;
 	private JLabel lblId2;
+	private JLabel lblIdOculta;
 
 	/**
 	 * Launch the application.
@@ -117,19 +118,14 @@ public class ABMCInternal extends JInternalFrame {
 		JLabel lblId = new JLabel("ID");
 		
 		lblId2 = new JLabel("");
+		
+		lblIdOculta = new JLabel("");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(10)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblId)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(lblDni, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(txtDni, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnBuscar))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(lblNombre, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
@@ -146,13 +142,27 @@ public class ABMCInternal extends JInternalFrame {
 							.addGap(6)
 							.addComponent(btnEliminar)
 							.addGap(6)
-							.addComponent(btnModificar))))
+							.addComponent(btnModificar))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblDni, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblId))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(txtDni, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(btnBuscar))
+								.addComponent(lblIdOculta, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE))))
+					.addGap(2))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(11)
-					.addComponent(lblId)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblId)
+						.addComponent(lblIdOculta))
 					.addGap(5)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
@@ -223,7 +233,7 @@ public class ABMCInternal extends JInternalFrame {
 		this.txtApellido.setText(p.getApellido());
 		this.txtDni.setText(p.getDni());
 		this.chckHabilitado.setSelected(p.getHabilitado());
-		this.lblId2.setText(Integer.toString(p.getId()));
+		this.lblIdOculta.setText(Integer.toString(p.getId()));
 	}
 	private Persona mapearDeForm(){
 		Persona p = new Persona();
