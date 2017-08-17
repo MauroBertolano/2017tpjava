@@ -218,8 +218,13 @@ public class ABMCInternal extends JInternalFrame {
 
 	protected void modificarClick() {
 		try {
-			ctrl.actualiza(this.mapearDeForm());
-		} catch (Exception e) {
+			Persona p =this.mapearDeForm();
+			p.setId(Integer.parseInt(this.lblIdOculta.getText()));
+			ctrl.actualiza(p);
+		}   catch (PersonaInvalida e) {
+		JOptionPane.showMessageDialog(this,e.getMessage());
+		}
+		    catch (Exception e) {
 			JOptionPane.showMessageDialog(this, "Error al actualizar la persona");
 		}
 

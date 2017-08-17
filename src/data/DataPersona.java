@@ -119,6 +119,32 @@ public class DataPersona {
     			e.printStackTrace();
     		}
     		}
+
+	public void modificar(Persona p) {
+		PreparedStatement stmt=null;
+		try {
+			stmt=FactoryConexion.getInstancia().getConn()
+					.prepareStatement(
+					"update persona set dni=?,nombre=?,apellido=?,habilitado=?  where id=?"							
+					);
+			stmt.setString(1, p.getDni());
+			stmt.setString(2, p.getNombre());
+			stmt.setString(3, p.getApellido());
+			stmt.setBoolean(4, p.getHabilitado());
+			stmt.setInt(5, p.getId());
+			stmt.executeUpdate();   	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			if (stmt != null)
+				stmt.close();
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 }
     		

@@ -30,12 +30,9 @@ public class Controlador {
 	}
 
 	public void actualiza(Persona p)throws Exception {
-		this.borrar(p);
-		try {
-			this.add(p);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		if(p.getDni().equals("") | p.getApellido().equals("") | p.getNombre().equals("") ){
+			throw new PersonaInvalida("Valores invalidos");}
+		this.dataPer.modificar(p);
 	}
 	public ArrayList<Persona> getPersonas(){
 		return pers;
