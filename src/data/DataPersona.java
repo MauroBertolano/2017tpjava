@@ -120,7 +120,7 @@ public class DataPersona {
     		}
     		}
 
-	public void modificar(Persona p) {
+	public void modificar(Persona p)throws Exception {
 		PreparedStatement stmt=null;
 		try {
 			stmt=FactoryConexion.getInstancia().getConn()
@@ -134,7 +134,7 @@ public class DataPersona {
 			stmt.setInt(5, p.getId());
 			stmt.executeUpdate();   	
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		}
 		try {
 			if (stmt != null)
