@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.sql.*;
 import entidades.Persona;
 import util.AppDataException;
-import util.PersonaExistente;
 import util.PersonaInvalida;
 
 public class DataPersona {

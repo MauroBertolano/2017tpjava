@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import data.DataPersona;
 import entidades.Persona;
-import util.PersonaExistente;
 import util.PersonaInvalida;
 
 public class Controlador {
@@ -14,11 +13,9 @@ public class Controlador {
 	
 	public void add(Persona p) throws Exception  {
 		if(p.getDni().equals("") | p.getApellido().equals("") | p.getNombre().equals("") ){
-			throw new PersonaInvalida("Valores invalidos");}
-		if(this.dataPer.getByDni(p)==null){
-		this.dataPer.add(p);}
-		else{
-			throw new PersonaExistente("Ya existe la persona");}
+			throw new PersonaInvalida("Valores invalidos");
+		}
+		this.dataPer.add(p);
 		}
 
 	public Persona getByDni(Persona p)throws Exception{
