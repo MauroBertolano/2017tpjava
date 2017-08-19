@@ -184,7 +184,11 @@ public class ABMCTipoElemento extends JInternalFrame {
 	}
 
 	protected void eliminarClick() {
-	
+		try {
+			ctrl.borrar(this.mapearDeForm());
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, "Error al eliminar la persona");
+		}
 	}
 
 	private void mapearAForm(TipoElemento tp){

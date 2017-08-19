@@ -1,5 +1,7 @@
 package logica;
 
+import java.util.ArrayList;
+
 import data.DataTipoElemento;
 import entidades.TipoElemento;
 import util.PersonaInvalida;
@@ -24,6 +26,13 @@ public class ControladorTipoElemento {
 		if(tp.getNombre().equals("") | tp.getCantMax()==0){
 			throw new PersonaInvalida("Valores invalidos");}
 		this.dataTipo.modificar(tp);
+	}
+	public void borrar(TipoElemento tp)throws Exception {
+		dataTipo.remove(this.dataTipo.getByNombre(tp));
+	}
+
+	public ArrayList<TipoElemento> getTipos() throws Exception {
+		return dataTipo.getAll();
 	}
 	
 }

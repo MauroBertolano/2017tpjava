@@ -62,6 +62,14 @@ public class ABMCDesktopWindow extends JFrame {
 			}
 		});
 		mnMenu.add(mntmAbmctipoelemento);
+		
+		JMenuItem mntmAbmcelemento = new JMenuItem("ABMCElemento");
+		mntmAbmcelemento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				showABMCEle();
+			}
+		});
+		mnMenu.add(mntmAbmcelemento);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -70,6 +78,13 @@ public class ABMCDesktopWindow extends JFrame {
 		desktopPane = new JDesktopPane();
 		contentPane.add(desktopPane, BorderLayout.CENTER);
 	}
+protected void showABMCEle() {
+		ABMCElemento abmcEle = new ABMCElemento();
+		desktopPane.add(abmcEle);
+		abmcEle.setVisible(true);
+		
+	}
+
 protected void showABMCTipo() {
 	ABMCTipoElemento abmcTipo = new ABMCTipoElemento();
 	desktopPane.add(abmcTipo);

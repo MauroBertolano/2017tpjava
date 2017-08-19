@@ -22,5 +22,14 @@ public class TipoElemento {
 	public void setCantMax(int cantMax) {
 		this.cantMax = cantMax;
 	}
+	@Override
+	public String toString(){
+		return (this.getId()+" - "+this.getNombre());
+	}
 	
+	@Override
+	public boolean equals(Object o){
+		return (o instanceof TipoElemento && ((TipoElemento)o).getId()==this.getId());
+	}
+		
 }
