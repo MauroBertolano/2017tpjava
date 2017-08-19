@@ -97,10 +97,11 @@ public class DataElemento {
 		try {
 			stmt=FactoryConexion.getInstancia().getConn()
 					.prepareStatement(
-					"update elemento set nombre=?,idTipoElemento=? where id=?"							
+					"update elemento set nombreElemento=?,id=? where idElemento=?"							
 					);
 			stmt.setString(1, ele.getNombre());
 			stmt.setInt(2, ele.getTipo().getId());
+			stmt.setInt(3, ele.getId());
 			stmt.executeUpdate();   	
 		} catch (SQLException e) {
 			throw e;
@@ -113,6 +114,40 @@ public class DataElemento {
 			e.printStackTrace();
 		}
 		
+	}
+
+	public ArrayList<Elemento> getAll()throws Exception {
+		ArrayList<Elemento> elems = new ArrayList<Elemento>();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select e.idElemento,e.nombreElemento,tp.id,tp.nombre,tp.cantMax from elemento e inner join tipoelemento tp on e.id=tp.id");
+			rs = stmt.executeQuery();
+			if (rs != null) {
+				while (rs.next()) {
+					Elemento ele = new Elemento();
+					ele.setTipo(new TipoElemento());
+					ele.setId(rs.getInt("e.idElemento"));
+					ele.setNombre(rs.getString("e.nombreElemento"));
+					ele.getTipo().setId(rs.getInt("tp.id"));	
+					ele.getTipo().setNombre(rs.getString("tp.nombre"));
+					ele.getTipo().setCantMax(rs.getInt("tp.cantMax"));				
+					elems.add(ele);
+				}
+			}
+		} catch (SQLException e) {
+			throw e;
+		}
+		try {
+			if (rs != null)
+				rs.close();
+			if (stmt != null)
+				stmt.close();
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return elems;
 	}
 	
 }

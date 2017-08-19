@@ -30,4 +30,8 @@ public class ControladorElemento {
 	public void borrar(Elemento ele)throws Exception {
 		dataEle.remove(this.dataEle.getByNombre(ele));
 	}
+
+	public ArrayList<Elemento> getAll()throws Exception{		
+		return this.dataEle.getAll();
+	}
 }

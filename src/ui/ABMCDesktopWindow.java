@@ -70,6 +70,14 @@ public class ABMCDesktopWindow extends JFrame {
 			}
 		});
 		mnMenu.add(mntmAbmcelemento);
+		
+		JMenuItem mntmListado = new JMenuItem("Listado");
+		mntmListado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				showListado();
+			}
+		});
+		mnMenu.add(mntmListado);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -78,6 +86,12 @@ public class ABMCDesktopWindow extends JFrame {
 		desktopPane = new JDesktopPane();
 		contentPane.add(desktopPane, BorderLayout.CENTER);
 	}
+protected void showListado() {
+	ListadoElementos lista = new ListadoElementos();
+	desktopPane.add(lista);
+	lista.setVisible(true);
+	}
+
 protected void showABMCEle() {
 		ABMCElemento abmcEle = new ABMCElemento();
 		desktopPane.add(abmcEle);
