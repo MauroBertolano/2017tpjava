@@ -114,13 +114,14 @@ public class DataTipoElemento {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
-			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select id, nombre from tipoelemento");
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select * from tipoelemento");
 			rs = stmt.executeQuery();
 			if (rs != null) {
 				while (rs.next()) {
 					tp = new TipoElemento();
 					tp.setId(rs.getInt("id"));
 					tp.setNombre(rs.getString("nombre"));
+					tp.setCantMax(rs.getInt("cantMax"));
 					tipos.add(tp);
 				}
 			}
