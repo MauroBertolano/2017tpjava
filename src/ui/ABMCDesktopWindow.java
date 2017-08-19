@@ -47,13 +47,21 @@ public class ABMCDesktopWindow extends JFrame {
 		JMenu mnMenu = new JMenu("Menu");
 		menuBar.add(mnMenu);
 		
-		JMenuItem mntmAbmc = new JMenuItem("ABMC");
+		JMenuItem mntmAbmc = new JMenuItem("ABMCPersona");
 		mntmAbmc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				showABMC();
 			}
 		});
 		mnMenu.add(mntmAbmc);
+		
+		JMenuItem mntmAbmctipoelemento = new JMenuItem("ABMCTipoElemento");
+		mntmAbmctipoelemento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				showABMCTipo();
+			}
+		});
+		mnMenu.add(mntmAbmctipoelemento);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -62,9 +70,15 @@ public class ABMCDesktopWindow extends JFrame {
 		desktopPane = new JDesktopPane();
 		contentPane.add(desktopPane, BorderLayout.CENTER);
 	}
+protected void showABMCTipo() {
+	ABMCTipoElemento abmcTipo = new ABMCTipoElemento();
+	desktopPane.add(abmcTipo);
+	abmcTipo.setVisible(true);
+	}
+
 protected void showABMC(){
-	ABMCInternal asd = new ABMCInternal();
-	desktopPane.add(asd);
-	asd.setVisible(true);
+	ABMCInternal abmcPersona = new ABMCInternal();
+	desktopPane.add(abmcPersona);
+	abmcPersona.setVisible(true);
 }
 }

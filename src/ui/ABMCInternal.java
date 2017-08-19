@@ -56,6 +56,7 @@ public class ABMCInternal extends JInternalFrame {
 	}
 
 	public ABMCInternal() {
+		setTitle("ABMCPersona");
 		setClosable(true);
 		setDefaultCloseOperation(JInternalFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 295, 230);
@@ -82,6 +83,10 @@ public class ABMCInternal extends JInternalFrame {
 		chckHabilitado.setSelected(true);
 		
 		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnBuscar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

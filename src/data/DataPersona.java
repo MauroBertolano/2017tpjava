@@ -102,8 +102,7 @@ public class DataPersona {
     		try {
     			stmt=FactoryConexion.getInstancia().getConn()
     					.prepareStatement(
-    					"delete from persona where dni=?"
-    							
+    					"delete from persona where dni=?"						
     					);
     			stmt.setString(1, p.getDni());
     			stmt.executeUpdate();   	
