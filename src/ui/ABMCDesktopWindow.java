@@ -81,6 +81,14 @@ public class ABMCDesktopWindow extends JFrame {
 				showListado();
 			}
 		});
+		
+		JMenuItem mntmAbmcreserva = new JMenuItem("ABMCReserva");
+		mntmAbmcreserva.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				showReserva();
+			}
+		});
+		mnMenu.add(mntmAbmcreserva);
 		mnMenu.add(mntmListado);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -90,6 +98,11 @@ public class ABMCDesktopWindow extends JFrame {
 		desktopPane = new JDesktopPane();
 		contentPane.add(desktopPane, BorderLayout.CENTER);
 		desktopPane.setLayout(new BorderLayout(0, 0));
+	}
+protected void showReserva() {
+	ABMCReserva res = new ABMCReserva();
+	desktopPane.add(res);
+	res.setVisible(true);
 	}
 protected void showListado() {
 	ListadoElementos lista = new ListadoElementos();

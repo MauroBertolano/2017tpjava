@@ -12,7 +12,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import entidades.Persona;
 import entidades.TipoElemento;
 import logica.ControladorTipoElemento;
-import util.PersonaInvalida;
+import util.ValorInvalido;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;

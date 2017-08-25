@@ -6,7 +6,6 @@ public class Reserva {
 	private int id;
 	private Date fecha;
 	private int hora;
-	private TipoElemento tipoElemento;
 	private Elemento elemento;
 	private String Detalle;
 	
@@ -15,12 +14,6 @@ public class Reserva {
 	}
 	public void setDetalle(String detalle) {
 		Detalle = detalle;
-	}
-	public TipoElemento getTipoElemento() {
-		return tipoElemento;
-	}
-	public void setTipoElemento(TipoElemento tipoElemento) {
-		this.tipoElemento = tipoElemento;
 	}
 	public Elemento getElemento() {
 		return elemento;

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.sql.*;
 import entidades.Persona;
 import util.AppDataException;
-import util.PersonaInvalida;
+import util.ValorInvalido;
 
 public class DataPersona {
 	
@@ -163,7 +163,7 @@ public class DataPersona {
 				p = new Persona();
 				p.setPsw(rs.getString("contraseña"));
 			}else{
-				throw new PersonaInvalida("Usuario no existe");
+				throw new ValorInvalido("Usuario no existe");
 			}
 		} catch (SQLException e) {
 			throw e;

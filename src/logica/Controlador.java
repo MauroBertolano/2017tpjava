@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import data.DataPersona;
 import entidades.Persona;
-import util.PersonaInvalida;
+import util.ValorInvalido;
 
 public class Controlador {
 	
@@ -13,7 +13,7 @@ public class Controlador {
 	
 	public void add(Persona p) throws Exception  {
 		if(p.getDni().equals("") | p.getApellido().equals("") | p.getNombre().equals("") ){
-			throw new PersonaInvalida("Valores invalidos");
+			throw new ValorInvalido("Valores invalidos");
 		}
 		this.dataPer.add(p);
 		}
@@ -28,7 +28,7 @@ public class Controlador {
 
 	public void actualiza(Persona p)throws Exception {
 		if(p.getDni().equals("") | p.getApellido().equals("") | p.getNombre().equals("") ){
-			throw new PersonaInvalida("Valores invalidos");}
+			throw new ValorInvalido("Valores invalidos");}
 		this.dataPer.modificar(p);
 	}
 	public ArrayList<Persona> getPersonas(){
@@ -47,9 +47,8 @@ public class Controlador {
 		return dataPer.getAll();
 }
 
-	public Boolean validarUsuario(Persona p) throws Exception {
-		String psw = p.getPsw();
-		return (dataPer.getByUsuario(p).getPsw().equals(psw));
+	public Persona validarUsuario(Persona p) throws Exception {
+		return (dataPer.getByUsuario(p));
 	}
 	
 }

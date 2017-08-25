@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import entidades.Elemento;
 import entidades.Reserva;
 import entidades.TipoElemento;
 
@@ -12,22 +13,22 @@ import entidades.TipoElemento;
 
 public class DataReserva {
 	
-	public Reserva getById(Reserva r)throws Exception {
-		Elemento ele = null;
+	/*public Reserva getById(Reserva r)throws Exception {
+		Reserva res = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
 			stmt = FactoryConexion.getInstancia().getConn()
-					.prepareStatement("select idElemento, nombreElemento, nombre,id from elemento e inner join tipoelemento tp on e.idTipoElemento=tp.id where nombre=?");
-			stmt.setString(1, r.getId());
+					.prepareStatement("select idReserva, fecha, hora, detalle, idElemento from reserva r inner join elemento e on r.idElemento=e.idElemento where idReserva=?");
+			stmt.setInt(1, r.getId());
 			rs = stmt.executeQuery();
 			if (rs != null && rs.next()) {
-				ele = new Reserva();
-				ele.setId(rs.getInt("idElemento"));
-				ele.setNombre(rs.getString("nombreElemento"));
-				ele.setTipo(new TipoElemento());
-				ele.getTipo().setNombre(rs.getString("nombre"));
-				ele.getTipo().setId(rs.getInt("id"));
+				res = new Reserva();
+				res.setId(rs.getInt("idElemento"));
+				res.setNombre(rs.getString("nombreElemento"));
+				res.setTipo(new TipoElemento());
+				res.getTipo().setNombre(rs.getString("nombre"));
+				res.getTipo().setId(rs.getInt("id"));
 			}
 		} catch (SQLException e) {
 			throw e;
@@ -41,22 +42,20 @@ public class DataReserva {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return ele;
-	}
+		return res;
+	}*/
 
 	public void add(Reserva r) throws Exception {
 		PreparedStatement stmt = null;
 		ResultSet keyResultSet = null;
 		try {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"insert into reserva(idTipoElemento,idElemento,fecha,hora,detalle) values (?,?,?,?,?)",
+					"insert into reserva(hora,fecha,detalle,idElemento) values (?,?,?,?)",
 					PreparedStatement.RETURN_GENERATED_KEYS);
-			
-			stmt.setInt(1, r.getTipoElemento().getId());
-			stmt.setInt(2, r.getElemento().getId());
-			stmt.setInt(3, r.getHora());
-			stmt.setDate(4, r.getFecha());
-			stmt.setString(5, r.getDetalle());
+			stmt.setInt(1, r.getHora());
+			stmt.setDate(2, r.getFecha());
+			stmt.setString(3, r.getDetalle());
+			stmt.setInt(4, r.getElemento().getId());
 			stmt.executeUpdate();
 			keyResultSet = stmt.getGeneratedKeys();
 			if (keyResultSet != null && keyResultSet.next()) {
@@ -97,26 +96,25 @@ public class DataReserva {
     			e.printStackTrace();
     		}
     		}
-
-	
-
-	public ArrayList<Reserva> getAll()throws Exception {
-		ArrayList<Reserva> res = new ArrayList<Reserva>();
+	public ArrayList<Elemento> getDisponibles(Reserva res) throws Exception {
+		ArrayList<Elemento> eles = new ArrayList<Elemento>();
+		Elemento ele = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
-			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select e.idElemento,e.nombreElemento,tp.id,tp.nombre,tp.cantMax from elemento e inner join tipoelemento tp on e.id=tp.id");
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select e.idElemento,e.nombreElemento,tp.cantMax from elemento e inner join tipoelemento tp on e.id=tp.id where e.id=? and e.idElemento not in (select e.idElemento from reserva r inner join elemento e on r.idElemento=e.idElemento where fecha=? and hora=? );");
+			stmt.setInt(1,res.getElemento().getTipo().getId());
+			stmt.setDate(2,res.getFecha());
+			stmt.setInt(3,res.getHora());
 			rs = stmt.executeQuery();
 			if (rs != null) {
 				while (rs.next()) {
-					Reserva r = new Reserva();
+					ele = new Elemento();
 					ele.setTipo(new TipoElemento());
 					ele.setId(rs.getInt("e.idElemento"));
 					ele.setNombre(rs.getString("e.nombreElemento"));
-					ele.getTipo().setId(rs.getInt("tp.id"));	
-					ele.getTipo().setNombre(rs.getString("tp.nombre"));
-					ele.getTipo().setCantMax(rs.getInt("tp.cantMax"));				
-					elems.add(ele);
+					ele.getTipo().setCantMax(rs.getInt("tp.cantMax"));
+					eles.add(ele);
 				}
 			}
 		} catch (SQLException e) {
@@ -131,7 +129,7 @@ public class DataReserva {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return elems;
+		return eles;
 	}
 	
 }

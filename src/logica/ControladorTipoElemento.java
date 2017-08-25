@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import data.DataTipoElemento;
 import entidades.TipoElemento;
-import util.PersonaInvalida;
+import util.ValorInvalido;
 
 public class ControladorTipoElemento {
 	
@@ -17,14 +17,14 @@ public class ControladorTipoElemento {
 
 	public void add(TipoElemento tp)throws Exception {
 		if(tp.getNombre().equals("") | tp.getCantMax()==0){
-			throw new PersonaInvalida("Valores invalidos");
+			throw new ValorInvalido("Valores invalidos");
 		}
 		this.dataTipo.add(tp);
 		}
 
 	public void actualiza(TipoElemento tp)throws Exception{
 		if(tp.getNombre().equals("") | tp.getCantMax()==0){
-			throw new PersonaInvalida("Valores invalidos");}
+			throw new ValorInvalido("Valores invalidos");}
 		this.dataTipo.modificar(tp);
 	}
 	public void borrar(TipoElemento tp)throws Exception {

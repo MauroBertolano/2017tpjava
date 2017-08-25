@@ -7,9 +7,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import data.CuentaLogeada;
 import entidades.Persona;
 import logica.Controlador;
-import util.PersonaInvalida;
+import util.ValorInvalido;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -225,6 +226,8 @@ public class ABMCPersona extends JInternalFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 	protected void limpiarClick() {
+		Persona p = new Persona();
+		p = CuentaLogeada.getPer(p);
 		this.txtNombre.setText("");
 		this.txtApellido.setText("");
 		this.txtDni.setText("");
@@ -244,7 +247,7 @@ public class ABMCPersona extends JInternalFrame {
 		try {
 			ctrl.add(this.mapearDeForm());
 			JOptionPane.showMessageDialog(this, "La persona se agregó correctamente");
-		} catch (PersonaInvalida e) {
+		} catch (ValorInvalido e) {
 			JOptionPane.showMessageDialog(this,e.getMessage());
 		}  catch (Exception e) {
 			JOptionPane.showMessageDialog(this, "Error al agregar la persona");
@@ -264,7 +267,7 @@ public class ABMCPersona extends JInternalFrame {
 			Persona p =this.mapearDeForm();
 			p.setId(Integer.parseInt(this.lblIdOculta.getText()));
 			ctrl.actualiza(p);
-		}   catch (PersonaInvalida e) {
+		}   catch (ValorInvalido e) {
 		JOptionPane.showMessageDialog(this,e.getMessage());
 		}
 		    catch (Exception e) {

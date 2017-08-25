@@ -1,6 +1,6 @@
 package util;
 
-public class PersonaInvalida extends Exception{
+public class ValorInvalido extends Exception{
 	private Throwable innerException;
 	private String message;
 	
@@ -14,7 +14,7 @@ public class PersonaInvalida extends Exception{
 	}
 
 
-	public PersonaInvalida(String message){
+	public ValorInvalido(String message){
 		this.setMessage(message);
 	}
 

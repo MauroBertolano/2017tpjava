@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import data.CuentaLogeada;
 import entidades.Persona;
 import logica.Controlador;
 
@@ -111,13 +112,13 @@ public class Login extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 
-	@SuppressWarnings("deprecation")
 	protected void mouseClick() {
-		/*Persona p = new Persona();
+	/*	Persona p = new Persona();
 		p.setUser(this.txtUsuario.getText());
-		p.setPsw(this.txtContraseña.getText());
 		try {
-			if(ctrl.validarUsuario(p)){
+			p = ctrl.validarUsuario(p);
+			if(p.getPsw().equals(this.txtContraseña)){
+				CuentaLogeada.getPer(p);
 				this.setVisible(false);
 				ABMCDesktopWindow principal = new ABMCDesktopWindow();
 				principal.setVisible(true);
@@ -130,6 +131,5 @@ public class Login extends JFrame {
 		this.setVisible(false);
 		ABMCDesktopWindow principal = new ABMCDesktopWindow();
 	    principal.setVisible(true);
-		
 	}
 }
