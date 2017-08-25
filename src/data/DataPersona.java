@@ -24,6 +24,7 @@ public class DataPersona {
 					p.setApellido(rs.getString("apellido"));
 					p.setDni(rs.getString("dni"));
 					p.setHabilitado(rs.getBoolean("habilitado"));
+					p.setUser(rs.getString("usuario"));
 					pers.add(p);
 				}
 			}
@@ -41,7 +42,7 @@ public class DataPersona {
 		try {
 			// el ? para detectar ....; si pone ' agrega \' para no concatenar
 			stmt = FactoryConexion.getInstancia().getConn()
-					.prepareStatement("select id, nombre, apellido, dni, habilitado from persona where dni=?");
+					.prepareStatement("select id, nombre, apellido, dni, habilitado,usuario from persona where dni=?");
 			stmt.setString(1, per.getDni());
 			rs = stmt.executeQuery();
 			if (rs != null && rs.next()) {
@@ -51,6 +52,7 @@ public class DataPersona {
 				p.setApellido(rs.getString("apellido"));
 				p.setDni(rs.getString("dni"));
 				p.setHabilitado(rs.getBoolean("habilitado"));
+				p.setUser(rs.getString("usuario"));
 			}
 		} catch (SQLException e) {
 			throw e;
@@ -72,12 +74,14 @@ public class DataPersona {
 		ResultSet keyResultSet = null;
 		try {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"insert into persona(dni, nombre, apellido, habilitado) values (?,?,?,?)",
+					"insert into persona(dni, nombre, apellido, habilitado, usuario, contraseña) values (?,?,?,?,?,?)",
 					PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, p.getDni());
 			stmt.setString(2, p.getNombre());
 			stmt.setString(3, p.getApellido());
 			stmt.setBoolean(4, p.getHabilitado());
+			stmt.setString(5, p.getUser());
+			stmt.setString(6, p.getPsw());
 			stmt.executeUpdate();
 			keyResultSet = stmt.getGeneratedKeys();
 			if (keyResultSet != null && keyResultSet.next()) {
@@ -123,13 +127,15 @@ public class DataPersona {
 		try {
 			stmt=FactoryConexion.getInstancia().getConn()
 					.prepareStatement(
-					"update persona set dni=?,nombre=?,apellido=?,habilitado=?  where id=?"							
+					"update persona set dni=?,nombre=?,apellido=?,habilitado=?,usuario=?,contraseña=? where id=?"							
 					);
 			stmt.setString(1, p.getDni());
 			stmt.setString(2, p.getNombre());
 			stmt.setString(3, p.getApellido());
 			stmt.setBoolean(4, p.getHabilitado());
-			stmt.setInt(5, p.getId());
+			stmt.setString(5, p.getUser());
+			stmt.setString(6, p.getPsw());
+			stmt.setInt(7, p.getId());
 			stmt.executeUpdate();   	
 		} catch (SQLException e) {
 			throw e;
@@ -142,6 +148,36 @@ public class DataPersona {
 			e.printStackTrace();
 		}
 		
+	}
+
+	public Persona getByUsuario(Persona per)throws Exception {
+		Persona p = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = FactoryConexion.getInstancia().getConn()
+					.prepareStatement("select contraseña from persona where usuario=?");
+			stmt.setString(1, per.getUser());
+			rs = stmt.executeQuery();
+			if (rs != null && rs.next()) {
+				p = new Persona();
+				p.setPsw(rs.getString("contraseña"));
+			}else{
+				throw new PersonaInvalida("Usuario no existe");
+			}
+		} catch (SQLException e) {
+			throw e;
+		}
+		try {
+			if (rs != null)
+				rs.close();
+			if (stmt != null)
+				stmt.close();
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return p;
 	}
 	
 }

@@ -20,6 +20,7 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JFrame;
 
 public class ABMCElemento extends JInternalFrame {
 	
@@ -46,6 +47,8 @@ public class ABMCElemento extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public ABMCElemento() {
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setClosable(true);
 		setTitle("ABMCElementos");
 		setBounds(100, 100, 300, 244);
 		
@@ -81,26 +84,27 @@ public class ABMCElemento extends JInternalFrame {
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(btnAgregar)
-					.addPreferredGap(ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
-					.addComponent(btnModificar)
-					.addGap(23))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(27)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblId)
-							.addGap(48)
-							.addComponent(lblIdOculta))
+							.addContainerGap()
+							.addComponent(btnAgregar)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnModificar))
 						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(27)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblNombre)
-								.addComponent(lblTipo))
-							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(cboTipo, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(txtNombre))))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblId)
+									.addGap(48)
+									.addComponent(lblIdOculta))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblNombre)
+										.addComponent(lblTipo))
+									.addGap(18)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(cboTipo, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(txtNombre))))))
 					.addContainerGap(116, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(

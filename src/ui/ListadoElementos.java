@@ -24,6 +24,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JFrame;
 
 public class ListadoElementos extends JInternalFrame {
 
@@ -35,6 +36,8 @@ public class ListadoElementos extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public ListadoElementos() {
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setClosable(true);
 		setTitle("Listado de Elementos");
 		setBounds(100, 100, 556, 456);
 
@@ -84,10 +87,8 @@ public class ListadoElementos extends JInternalFrame {
 		this.getDesktopPane().add(pd);
 		pd.setVisible(true);
 	}
-
 	protected void initDataBindings() {
-		JTableBinding<Elemento, List<Elemento>, JTable> jTableBinding = SwingBindings
-				.createJTableBinding(UpdateStrategy.READ, elem, table);
+		JTableBinding<Elemento, List<Elemento>, JTable> jTableBinding = SwingBindings.createJTableBinding(UpdateStrategy.READ, elem, table);
 		//
 		BeanProperty<Elemento, Integer> elementoBeanProperty = BeanProperty.create("id");
 		jTableBinding.addColumnBinding(elementoBeanProperty).setColumnName("IdElemento").setEditable(false);
@@ -104,6 +105,7 @@ public class ListadoElementos extends JInternalFrame {
 		BeanProperty<Elemento, Integer> elementoBeanProperty_4 = BeanProperty.create("tipo.cantMax");
 		jTableBinding.addColumnBinding(elementoBeanProperty_4).setColumnName("CantidadMaxima").setEditable(false);
 		//
+		jTableBinding.setEditable(false);
 		jTableBinding.bind();
 	}
 }

@@ -12,6 +12,10 @@ import javax.swing.JMenuItem;
 import javax.swing.JDesktopPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import java.awt.FlowLayout;
+import javax.swing.BoxLayout;
 
 public class ABMCDesktopWindow extends JFrame {
 
@@ -39,7 +43,7 @@ public class ABMCDesktopWindow extends JFrame {
 	 */
 	public ABMCDesktopWindow() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 650, 440);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -85,6 +89,7 @@ public class ABMCDesktopWindow extends JFrame {
 		
 		desktopPane = new JDesktopPane();
 		contentPane.add(desktopPane, BorderLayout.CENTER);
+		desktopPane.setLayout(new BorderLayout(0, 0));
 	}
 protected void showListado() {
 	ListadoElementos lista = new ListadoElementos();
@@ -106,7 +111,7 @@ protected void showABMCTipo() {
 	}
 
 protected void showABMC(){
-	ABMCInternal abmcPersona = new ABMCInternal();
+	ABMCPersona abmcPersona = new ABMCPersona();
 	desktopPane.add(abmcPersona);
 	abmcPersona.setVisible(true);
 }

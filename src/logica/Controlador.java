@@ -46,5 +46,10 @@ public class Controlador {
 	public ArrayList<Persona> getAll(){
 		return dataPer.getAll();
 }
+
+	public Boolean validarUsuario(Persona p) throws Exception {
+		String psw = p.getPsw();
+		return (dataPer.getByUsuario(p).getPsw().equals(psw));
+	}
 	
 }
