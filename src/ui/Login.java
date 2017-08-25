@@ -113,7 +113,7 @@ public class Login extends JFrame {
 
 	@SuppressWarnings("deprecation")
 	protected void mouseClick() {
-		Persona p = new Persona();
+		/*Persona p = new Persona();
 		p.setUser(this.txtUsuario.getText());
 		p.setPsw(this.txtContraseña.getText());
 		try {
@@ -126,10 +126,10 @@ public class Login extends JFrame {
 			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getMessage());;
-		}
-		/*this.setVisible(false);
+		}*/
+		this.setVisible(false);
 		ABMCDesktopWindow principal = new ABMCDesktopWindow();
-	    principal.setVisible(true);*/
+	    principal.setVisible(true);
 		
 	}
 }
