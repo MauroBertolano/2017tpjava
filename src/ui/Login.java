@@ -113,12 +113,13 @@ public class Login extends JFrame {
 	}
 
 	protected void mouseClick() {
-	/*	Persona p = new Persona();
+			Persona p = new Persona();
 		p.setUser(this.txtUsuario.getText());
+		String psw = this.txtContraseña.getText();
 		try {
 			p = ctrl.validarUsuario(p);
-			if(p.getPsw().equals(this.txtContraseña)){
-				CuentaLogeada.getPer(p);
+			if(p.getPsw().equals(psw)){
+				CuentaLogeada.asignarUsuario(p);
 				this.setVisible(false);
 				ABMCDesktopWindow principal = new ABMCDesktopWindow();
 				principal.setVisible(true);
@@ -127,9 +128,9 @@ public class Login extends JFrame {
 			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getMessage());;
-		}*/
-		this.setVisible(false);
+		}
+		/*this.setVisible(false);
 		ABMCDesktopWindow principal = new ABMCDesktopWindow();
-	    principal.setVisible(true);
+	    principal.setVisible(true);*/
 	}
 }

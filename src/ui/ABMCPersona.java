@@ -226,8 +226,6 @@ public class ABMCPersona extends JInternalFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 	protected void limpiarClick() {
-		Persona p = new Persona();
-		p = CuentaLogeada.getPer(p);
 		this.txtNombre.setText("");
 		this.txtApellido.setText("");
 		this.txtDni.setText("");
