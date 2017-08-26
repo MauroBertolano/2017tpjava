@@ -136,7 +136,7 @@ public class ABMCReserva extends JInternalFrame {
 			}
 		});
 		
-		JLabel lblAaaammdd = new JLabel("aaaa/mm/dd");
+		JLabel lblFechaFormat = new JLabel("aaaa-mm-dd");
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -158,7 +158,7 @@ public class ABMCReserva extends JInternalFrame {
 									.addGap(23)
 									.addComponent(txtFecha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(lblAaaammdd))
+									.addComponent(lblFechaFormat))
 								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(lblDetalle)
 									.addPreferredGap(ComponentPlacement.UNRELATED)
@@ -206,7 +206,7 @@ public class ABMCReserva extends JInternalFrame {
 									.addComponent(lblFecha))
 								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 									.addComponent(txtFecha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addComponent(lblAaaammdd)))
+									.addComponent(lblFechaFormat)))
 							.addGap(5)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
