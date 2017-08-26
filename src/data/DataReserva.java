@@ -3,7 +3,9 @@ package data;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import entidades.Elemento;
 import entidades.Reserva;
@@ -131,6 +133,47 @@ public class DataReserva {
 			e.printStackTrace();
 		}
 		return eles;
+	}
+
+	public ArrayList<Reserva> getAll()throws Exception {
+		ArrayList<Reserva> res = new ArrayList<Reserva>();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+		String fecha = sdf.format(date);
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select r.idReserva,r.fecha,r.hora,e.idElemento,e.nombreElemento,tp.nombre,r.detalle from reserva r inner join elemento e on r.idElemento=e.idElemento inner join tipoelemento tp on tp.id=e.id where r.fecha>?;");
+			stmt.setString(1, fecha);
+			rs = stmt.executeQuery();
+			if (rs != null) {
+				while (rs.next()) {
+					Reserva r = new Reserva();
+					r.setElemento(new Elemento());
+					r.getElemento().setTipo(new TipoElemento());
+					r.setId(rs.getInt("r.idReserva"));
+					r.setFecha(rs.getDate("r.fecha"));
+					r.setHora(rs.getInt("r.hora"));	
+					r.getElemento().setId(rs.getInt("e.idElemento"));
+					r.getElemento().setNombre(rs.getString("e.nombreElemento"));
+					r.getElemento().getTipo().setNombre(rs.getString("tp.nombre"));
+					r.setDetalle(rs.getString("r.detalle"));
+					res.add(r);
+				}
+			}
+		} catch (SQLException e) {
+			throw e;
+		}
+		try {
+			if (rs != null)
+				rs.close();
+			if (stmt != null)
+				stmt.close();
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return res;
 	}
 	
 }

@@ -16,6 +16,10 @@ public class ControladorReserva {
 	public void addReserva(Reserva res) throws Exception {
 		this.dataRes.add(res);		
 	}
+
+	public ArrayList<Reserva> getAll() throws Exception {
+		return this.dataRes.getAll();
+	}
 	
 
 }

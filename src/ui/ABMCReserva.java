@@ -26,9 +26,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
@@ -36,9 +36,9 @@ import org.jdesktop.swingbinding.JTableBinding;
 import org.jdesktop.swingbinding.SwingBindings;
 import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
 import org.jdesktop.beansbinding.BeanProperty;
+import com.toedter.calendar.JDateChooser;
 
 public class ABMCReserva extends JInternalFrame {
-	private JTextField txtFecha;
 	private JTextField txtHora;
 	private JTextField txtDetalle;
 	private JTextField txtNombre;
@@ -49,6 +49,7 @@ public class ABMCReserva extends JInternalFrame {
 	private JLabel lblIdOculta;
 	private JLabel lblIdOculta2;
 	private JTable table;
+	private JDateChooser dateCh;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -66,7 +67,7 @@ public class ABMCReserva extends JInternalFrame {
 	public ABMCReserva() {
 		setClosable(true);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setTitle("ABMCReserva");
+		setTitle("Reservar");
 		setBounds(100, 100, 892, 430);
 		
 		JLabel lblIdReserva = new JLabel("ID Reserva");
@@ -88,9 +89,6 @@ public class ABMCReserva extends JInternalFrame {
 		JLabel lblTipoelemento = new JLabel("TipoElemento");
 		
 		lblIdOculta = new JLabel("");
-		
-		txtFecha = new JTextField();
-		txtFecha.setColumns(10);
 		
 		txtHora = new JTextField();
 		txtHora.setColumns(10);
@@ -136,7 +134,8 @@ public class ABMCReserva extends JInternalFrame {
 			}
 		});
 		
-		JLabel lblFechaFormat = new JLabel("aaaa-mm-dd");
+		dateCh = new JDateChooser();
+		dateCh.setDateFormatString("yyyy-MM-dd");
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -146,45 +145,40 @@ public class ABMCReserva extends JInternalFrame {
 						.addComponent(btnSeleccionar)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnReservar)
-								.addComponent(lblElemento, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblReserva, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(lblIdReserva, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
 									.addGap(23)
 									.addComponent(lblIdOculta, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblFecha, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
-									.addGap(23)
-									.addComponent(txtFecha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(lblFechaFormat))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblDetalle)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(txtDetalle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGroup(groupLayout.createSequentialGroup()
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(lblId, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
-											.addGap(18)
-											.addComponent(lblIdOculta2, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(lblNombre, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
-											.addGap(18)
-											.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 										.addGroup(groupLayout.createSequentialGroup()
 											.addComponent(lblTipoelemento, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
 											.addGap(23)
 											.addComponent(cboTipos, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(lblHora, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addComponent(lblHora, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+												.addComponent(lblFecha, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE))
 											.addGap(23)
-											.addComponent(txtHora, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+												.addComponent(txtHora)
+												.addComponent(dateCh, GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE))))
 									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(btnBuscarElementos, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
-									.addGap(8)))
-							.addGap(34)
+									.addComponent(btnBuscarElementos, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblDetalle)
+										.addComponent(btnReservar)
+										.addComponent(lblNombre, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblId, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE))
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblIdOculta2, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+										.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(txtDetalle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(lblElemento, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE))
+							.addGap(42)
 							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 462, GroupLayout.PREFERRED_SIZE)))
 					.addGap(34))
 		);
@@ -199,20 +193,20 @@ public class ABMCReserva extends JInternalFrame {
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblIdReserva)
 								.addComponent(lblIdOculta, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
-							.addGap(8)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(3)
+									.addGap(11)
 									.addComponent(lblFecha))
-								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-									.addComponent(txtFecha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addComponent(lblFechaFormat)))
-							.addGap(5)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(dateCh, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(3)
+									.addGap(9)
 									.addComponent(lblHora))
-								.addComponent(txtHora, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(txtHora, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
@@ -223,17 +217,15 @@ public class ABMCReserva extends JInternalFrame {
 									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 										.addComponent(btnBuscarElementos)
 										.addComponent(cboTipos, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-							.addGap(12)
+							.addGap(50)
 							.addComponent(lblElemento)
-							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGap(12)
+							.addComponent(lblIdOculta2, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblId)
-								.addComponent(lblIdOculta2, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
-							.addGap(11)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblNombre)
-								.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(44)
+								.addComponent(lblNombre, Alignment.TRAILING)
+								.addComponent(txtNombre, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblDetalle, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtDetalle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
@@ -244,7 +236,11 @@ public class ABMCReserva extends JInternalFrame {
 							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 305, GroupLayout.PREFERRED_SIZE)))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btnSeleccionar)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGap(9))
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addGap(221)
+					.addComponent(lblId, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGap(165))
 		);
 		
 		table = new JTable();
@@ -290,11 +286,14 @@ public class ABMCReserva extends JInternalFrame {
 	private Reserva mapearDeForm(){
 		Reserva res = new Reserva();
 		Elemento el = new Elemento();
+		Date fecha = dateCh.getDate();
+		long d = fecha.getTime();
+		java.sql.Date fechaa = new java.sql.Date(d);
 		res.setElemento(el);
 		if(!this.lblIdOculta.getText().isEmpty()){
 			res.setId(Integer.parseInt(this.lblIdOculta.getText()));
 			}
-		res.setFecha(Date.valueOf(this.txtFecha.getText()));
+		res.setFecha(fechaa);
 		res.setHora(Integer.parseInt(this.txtHora.getText()));
 		if (cboTipos.getSelectedIndex() != -1){
 			res.getElemento().setTipo((TipoElemento)this.cboTipos.getSelectedItem());}
