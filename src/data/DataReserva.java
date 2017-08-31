@@ -10,6 +10,7 @@ import java.util.Date;
 import entidades.Elemento;
 import entidades.Reserva;
 import entidades.TipoElemento;
+import util.AppDataException;
 
 
 
@@ -52,13 +53,14 @@ public class DataReserva {
 		ResultSet keyResultSet = null;
 		try {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"insert into reserva(hora,fecha,detalle,idElemento,idPersona) values (?,?,?,?,?)",
+					"insert into reserva(horaDesde,horaHasta,fecha,detalle,idElemento,idPersona) values (?,?,?,?,?,?)",
 					PreparedStatement.RETURN_GENERATED_KEYS);
-			stmt.setInt(1, r.getHora());
-			stmt.setDate(2, r.getFecha());
-			stmt.setString(3, r.getDetalle());
-			stmt.setInt(4, r.getElemento().getId());
-			stmt.setInt(5, CuentaLogeada.getUsuario().getId() );
+			stmt.setInt(1, r.getHoraDesde());
+			stmt.setInt(2, r.getHoraHasta());
+			stmt.setDate(3, r.getFecha());
+			stmt.setString(4, r.getDetalle());
+			stmt.setInt(5, r.getElemento().getId());
+			stmt.setInt(6, CuentaLogeada.getUsuario().getId() );
 			stmt.executeUpdate();
 			keyResultSet = stmt.getGeneratedKeys();
 			if (keyResultSet != null && keyResultSet.next()) {
@@ -105,10 +107,15 @@ public class DataReserva {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
-			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select e.idElemento,e.nombreElemento,tp.cantMax from elemento e inner join tipoelemento tp on e.id=tp.id where e.id=? and e.idElemento not in (select e.idElemento from reserva r inner join elemento e on r.idElemento=e.idElemento where fecha=? and hora=? );");
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select e.idElemento,e.nombreElemento,tp.cantMax from elemento e inner join tipoelemento tp on e.id=tp.id where e.id=? "
+					+ "and e.idElemento not in (select e.idElemento from reserva r inner join elemento e on r.idElemento=e.idElemento "
+					+ "where r.fecha=? and ((? between r.horaDesde and r.horaHasta) or (? between r.horaDesde and r.horaHasta) or (?<r.horaDesde and ?>r.horaHasta)));");
 			stmt.setInt(1,res.getElemento().getTipo().getId());
 			stmt.setDate(2,res.getFecha());
-			stmt.setInt(3,res.getHora());
+			stmt.setInt(3,res.getHoraDesde());
+			stmt.setInt(4,res.getHoraHasta());
+			stmt.setInt(5,res.getHoraDesde());
+			stmt.setInt(6,res.getHoraHasta());
 			rs = stmt.executeQuery();
 			if (rs != null) {
 				while (rs.next()) {
@@ -119,6 +126,8 @@ public class DataReserva {
 					ele.getTipo().setCantMax(rs.getInt("tp.cantMax"));
 					eles.add(ele);
 				}
+			}else{
+				throw new AppDataException("No hay elementos disponibles");
 			}
 		} catch (SQLException e) {
 			throw e;
@@ -153,7 +162,7 @@ public class DataReserva {
 					r.getElemento().setTipo(new TipoElemento());
 					r.setId(rs.getInt("r.idReserva"));
 					r.setFecha(rs.getDate("r.fecha"));
-					r.setHora(rs.getInt("r.hora"));	
+					r.setHoraDesde(rs.getInt("r.hora"));	
 					r.getElemento().setId(rs.getInt("e.idElemento"));
 					r.getElemento().setNombre(rs.getString("e.nombreElemento"));
 					r.getElemento().getTipo().setNombre(rs.getString("tp.nombre"));

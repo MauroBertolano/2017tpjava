@@ -5,7 +5,8 @@ import java.sql.Date;
 public class Reserva {
 	private int id;
 	private Date fecha;
-	private int hora;
+	private int horaDesde;
+	private int horaHasta;
 	private Elemento elemento;
 	private String Detalle;
 	
@@ -33,11 +34,17 @@ public class Reserva {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	public int getHora() {
-		return hora;
+	public int getHoraDesde() {
+		return horaDesde;
 	}
-	public void setHora(int hora) {
-		this.hora = hora;
+	public void setHoraDesde(int horaDesde) {
+		this.horaDesde = horaDesde;
+	}
+	public int getHoraHasta() {
+		return horaHasta;
+	}
+	public void setHoraHasta(int horaHasta) {
+		this.horaHasta = horaHasta;
 	}
 	
 	

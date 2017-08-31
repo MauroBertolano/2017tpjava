@@ -37,9 +37,11 @@ import org.jdesktop.swingbinding.SwingBindings;
 import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
 import org.jdesktop.beansbinding.BeanProperty;
 import com.toedter.calendar.JDateChooser;
+import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
 
 public class ABMCReserva extends JInternalFrame {
-	private JTextField txtHora;
+	private JTextField txtHoraDesde;
 	private JTextField txtDetalle;
 	private JTextField txtNombre;
 	private ControladorTipoElemento ctrlTipo= new ControladorTipoElemento();
@@ -50,6 +52,9 @@ public class ABMCReserva extends JInternalFrame {
 	private JLabel lblIdOculta2;
 	private JTable table;
 	private JDateChooser dateCh;
+	private JTextField txtMinutoDesde;
+	private JTextField txtHoraHasta;
+	private JTextField txtMinutoHasta;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -68,41 +73,10 @@ public class ABMCReserva extends JInternalFrame {
 		setClosable(true);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setTitle("Reservar");
-		setBounds(100, 100, 892, 430);
-		
-		JLabel lblIdReserva = new JLabel("ID Reserva");
-		
-		JLabel lblFecha = new JLabel("Fecha");
-		
-		JLabel lblHora = new JLabel("Hora");
-		
-		JLabel lblDetalle = new JLabel("Detalle de la reserva");
-		
-		JLabel lblReserva = new JLabel("RESERVA");
-		
-		JLabel lblElemento = new JLabel("ELEMENTO");
-		
-		JLabel lblId = new JLabel("ID Elemento");
-		
-		JLabel lblNombre = new JLabel("Nombre");
-		
-		JLabel lblTipoelemento = new JLabel("TipoElemento");
-		
-		lblIdOculta = new JLabel("");
-		
-		txtHora = new JTextField();
-		txtHora.setColumns(10);
-		
-		txtDetalle = new JTextField();
-		txtDetalle.setColumns(10);
-		
-		lblIdOculta2 = new JLabel("");
-		
-		txtNombre = new JTextField();
-		txtNombre.setEditable(false);
-		txtNombre.setColumns(10);
+		setBounds(100, 100, 947, 552);
 		
 		JButton btnBuscarElementos = new JButton("Buscar Elementos");
+		btnBuscarElementos.setBounds(302, 192, 122, 23);
 		btnBuscarElementos.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -114,9 +88,8 @@ public class ABMCReserva extends JInternalFrame {
 			}
 		});
 		
-		cboTipos = new JComboBox();
-		
 		JButton btnReservar = new JButton("Reservar");
+		btnReservar.setBounds(10, 373, 86, 23);
 		btnReservar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -125,8 +98,18 @@ public class ABMCReserva extends JInternalFrame {
 		});
 		
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(430, 54, 462, 305);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(10, 54, 286, 161);
+		panel.setBorder(new TitledBorder(null, "RESERVA", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(10, 226, 286, 102);
+		panel_1.setBorder(new TitledBorder(null, "ELEMENTO", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		JButton btnSeleccionar = new JButton("Seleccionar");
+		btnSeleccionar.setBounds(777, 370, 120, 23);
 		btnSeleccionar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -134,127 +117,183 @@ public class ABMCReserva extends JInternalFrame {
 			}
 		});
 		
+		JLabel lblDetalle = new JLabel("Detalle de la reserva");
+		lblDetalle.setBounds(10, 339, 115, 28);
+		
+		txtDetalle = new JTextField();
+		txtDetalle.setBounds(129, 343, 86, 20);
+		txtDetalle.setColumns(10);
+		
+		JLabel lblNombre = new JLabel("Nombre");
+		
+		JLabel lblId = new JLabel("ID Elemento");
+		
+		lblIdOculta2 = new JLabel("");
+		
+		txtNombre = new JTextField();
+		txtNombre.setEditable(false);
+		txtNombre.setColumns(10);
+		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addComponent(lblId, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(lblIdOculta2, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addComponent(lblNombre, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(40, Short.MAX_VALUE))
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addGap(20)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblId)
+						.addComponent(lblIdOculta2, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNombre)
+						.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(14, Short.MAX_VALUE))
+		);
+		panel_1.setLayout(gl_panel_1);
+		
+		txtHoraHasta = new JTextField();
+		txtHoraHasta.setColumns(10);
+		
+		JLabel label_1 = new JLabel(":");
+		
+		txtMinutoHasta = new JTextField();
+		txtMinutoHasta.setColumns(10);
+		
+		JLabel lblIdReserva = new JLabel("ID Reserva");
+		
+		lblIdOculta = new JLabel("");
+		
+		JLabel lblHoraDesde = new JLabel("HoraDesde");
+		
+		JLabel lblFecha = new JLabel("Fecha");
+		
+		JLabel lblHorahasta = new JLabel("HoraHasta");
+		
+		txtHoraDesde = new JTextField();
+		txtHoraDesde.setColumns(10);
+		
+		JLabel label = new JLabel(":");
+		
+		txtMinutoDesde = new JTextField();
+		txtMinutoDesde.setColumns(10);
+		
 		dateCh = new JDateChooser();
 		dateCh.setDateFormatString("yyyy-MM-dd");
-		GroupLayout groupLayout = new GroupLayout(getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(28)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(btnSeleccionar)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblReserva, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblIdReserva, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
-									.addGap(23)
-									.addComponent(lblIdOculta, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(lblTipoelemento, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
-											.addGap(23)
-											.addComponent(cboTipos, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-										.addGroup(groupLayout.createSequentialGroup()
-											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(lblHora, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblFecha, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE))
-											.addGap(23)
-											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-												.addComponent(txtHora)
-												.addComponent(dateCh, GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE))))
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(btnBuscarElementos, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblDetalle)
-										.addComponent(btnReservar)
-										.addComponent(lblNombre, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblId, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE))
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblIdOculta2, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
-										.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(txtDetalle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-								.addComponent(lblElemento, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE))
-							.addGap(42)
-							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 462, GroupLayout.PREFERRED_SIZE)))
-					.addGap(34))
+		
+		JLabel lblTipoelemento = new JLabel("TipoElemento");
+		
+		cboTipos = new JComboBox();
+		GroupLayout gl_panel = new GroupLayout(panel);
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(lblIdReserva, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+							.addGap(23)
+							.addComponent(lblIdOculta, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(lblFecha, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+							.addGap(23)
+							.addComponent(dateCh, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(lblHoraDesde, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+							.addGap(23)
+							.addComponent(txtHoraDesde, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+							.addGap(4)
+							.addComponent(label)
+							.addGap(4)
+							.addComponent(txtMinutoDesde, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(lblHorahasta, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+							.addGap(23)
+							.addComponent(txtHoraHasta, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+							.addGap(4)
+							.addComponent(label_1)
+							.addGap(4)
+							.addComponent(txtMinutoHasta, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(lblTipoelemento, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+							.addGap(23)
+							.addComponent(cboTipos, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(26, Short.MAX_VALUE))
 		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(31)
-							.addComponent(lblReserva)
-							.addGap(11)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblIdReserva)
-								.addComponent(lblIdOculta, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(11)
-									.addComponent(lblFecha))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(dateCh, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(9)
-									.addComponent(lblHora))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(txtHora, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(4)
-									.addComponent(lblTipoelemento))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(1)
-									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-										.addComponent(btnBuscarElementos)
-										.addComponent(cboTipos, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-							.addGap(50)
-							.addComponent(lblElemento)
-							.addGap(12)
-							.addComponent(lblIdOculta2, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblNombre, Alignment.TRAILING)
-								.addComponent(txtNombre, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblDetalle, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtDetalle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(39)
-							.addComponent(btnReservar))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(44)
-							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 305, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnSeleccionar)
-					.addGap(9))
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addGap(221)
-					.addComponent(lblId, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGap(165))
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addGap(1)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblIdReserva)
+						.addComponent(lblIdOculta, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+					.addGap(6)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(5)
+							.addComponent(lblFecha))
+						.addComponent(dateCh, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(6)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblHoraDesde))
+						.addComponent(txtHoraDesde, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(3)
+							.addComponent(label))
+						.addComponent(txtMinutoDesde, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(11)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblHorahasta)
+						.addComponent(txtHoraHasta, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(label_1)
+						.addComponent(txtMinutoHasta, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(12)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblTipoelemento))
+						.addComponent(cboTipos, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(25, Short.MAX_VALUE))
 		);
+		panel.setLayout(gl_panel);
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
-		getContentPane().setLayout(groupLayout);
+		getContentPane().setLayout(null);
+		getContentPane().add(btnReservar);
+		getContentPane().add(lblDetalle);
+		getContentPane().add(txtDetalle);
+		getContentPane().add(panel);
+		getContentPane().add(panel_1);
+		getContentPane().add(btnBuscarElementos);
+		getContentPane().add(scrollPane);
+		getContentPane().add(btnSeleccionar);
 		
 		cargarListas();
 
 	}
 
 	protected void seleccionarClick() {
-		int indexElemento = table.convertRowIndexToModel(table.getSelectedRow());
-		this.mapearAForm(this.elemDisp.get(indexElemento));
-		
+		if (cboTipos.getSelectedIndex() != -1){
+			this.txtNombre.setText(elemDisp.get(table.getSelectedRow()).getNombre());
+			this.lblIdOculta2.setText(Integer.toString(elemDisp.get(table.getSelectedRow()).getId()));
+						
+		}
 	}
 
 	protected void reservarClick() {
@@ -271,7 +310,7 @@ public class ABMCReserva extends JInternalFrame {
 			this.elemDisp = this.ctrlRes.getDisponibles(this.mapearDeForm());
 			initDataBindings();
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	}
 
@@ -294,7 +333,8 @@ public class ABMCReserva extends JInternalFrame {
 			res.setId(Integer.parseInt(this.lblIdOculta.getText()));
 			}
 		res.setFecha(fechaa);
-		res.setHora(Integer.parseInt(this.txtHora.getText()));
+		res.setHoraDesde(Integer.parseInt(this.txtHoraDesde.getText()+this.txtMinutoDesde.getText()));
+		res.setHoraHasta(Integer.parseInt(this.txtHoraHasta.getText()+this.txtMinutoHasta.getText()));
 		if (cboTipos.getSelectedIndex() != -1){
 			res.getElemento().setTipo((TipoElemento)this.cboTipos.getSelectedItem());}
 		if(!this.lblIdOculta2.getText().isEmpty()){
