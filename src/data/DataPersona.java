@@ -156,12 +156,13 @@ public class DataPersona {
 		ResultSet rs = null;
 		try {
 			stmt = FactoryConexion.getInstancia().getConn()
-					.prepareStatement("select contraseña from persona where usuario=?");
+					.prepareStatement("select contraseña,id from persona where usuario=?");
 			stmt.setString(1, per.getUser());
 			rs = stmt.executeQuery();
 			if (rs != null && rs.next()) {
 				p = new Persona();
 				p.setPsw(rs.getString("contraseña"));
+				p.setId(rs.getInt("id"));
 			}else{
 				throw new ValorInvalido("Usuario no existe");
 			}

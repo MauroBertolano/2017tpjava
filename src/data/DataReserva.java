@@ -85,8 +85,7 @@ public class DataReserva {
     		try {
     			stmt=FactoryConexion.getInstancia().getConn()
     					.prepareStatement(
-    					"delete from reserva where id=?"
-    							
+    					"delete from reserva where idReserva=?"    							
     					);
     			stmt.setInt(1, r.getId());
     			stmt.executeUpdate();   	
@@ -126,9 +125,9 @@ public class DataReserva {
 					ele.getTipo().setCantMax(rs.getInt("tp.cantMax"));
 					eles.add(ele);
 				}
-			}else{
-				throw new AppDataException("No hay elementos disponibles");
 			}
+			if(eles.isEmpty()){
+			throw new AppDataException("No hay elementos disponibles");}
 		} catch (SQLException e) {
 			throw e;
 		}
@@ -148,13 +147,14 @@ public class DataReserva {
 		ArrayList<Reserva> res = new ArrayList<Reserva>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-		String fecha = sdf.format(date);
+//		Date date = new Date();
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//		String fecha = sdf.format(date);
 		try {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select r.idReserva,r.fecha,r.horaDesde,r.horaHasta,e.idElemento,e.nombreElemento,tp.nombre,r.detalle "
-					+ "from reserva r inner join elemento e on r.idElemento=e.idElemento inner join tipoelemento tp on tp.id=e.id where r.fecha>=?;");
-			stmt.setString(1, fecha);
+					+ "from reserva r inner join elemento e on r.idElemento=e.idElemento inner join tipoelemento tp on tp.id=e.id where r.fecha>=current_date and r.idPersona=?;");
+//			stmt.setString(1, fecha);
+			stmt.setInt(1, CuentaLogeada.getUsuario().getId());
 			rs = stmt.executeQuery();
 			if (rs != null) {
 				while (rs.next()) {

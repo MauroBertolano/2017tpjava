@@ -20,6 +20,10 @@ public class ControladorReserva {
 	public ArrayList<Reserva> getAll() throws Exception {
 		return this.dataRes.getAll();
 	}
+
+	public void remove(Reserva reserva) throws Exception {
+		dataRes.remove(reserva);
+	}
 	
 
 }

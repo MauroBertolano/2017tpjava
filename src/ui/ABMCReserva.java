@@ -14,6 +14,7 @@ import entidades.Reserva;
 import entidades.TipoElemento;
 import logica.ControladorReserva;
 import logica.ControladorTipoElemento;
+import util.AppDataException;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -26,7 +27,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Date;
 
@@ -298,20 +302,41 @@ public class ABMCReserva extends JInternalFrame {
 
 	protected void reservarClick() {
 		try {
+			if(!this.txtNombre.getText().isEmpty()){
 			this.ctrlRes.addReserva(this.mapearDeForm());
-			JOptionPane.showMessageDialog(this, "Reserva realizada");
-		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, "Reserva realizada");}
+			else{JOptionPane.showMessageDialog(this, "Seleccione un objeto");}
+		}	catch (Exception e) {
+			JOptionPane.showMessageDialog(this, "Error al realizar reserva");
 		}
 	}
 
 	protected void buscarDisponibles() {
+		SimpleDateFormat d = new SimpleDateFormat("yy-MM-dd");
+		Date date = new Date();
+		String hoy = d.format(date);
 		try {
-			this.elemDisp = this.ctrlRes.getDisponibles(this.mapearDeForm());
-			initDataBindings();
-		} catch (Exception e) {
+			if(!this.txtHoraDesde.getText().isEmpty() && !this.txtMinutoDesde.getText().isEmpty() && !this.txtHoraHasta.getText().isEmpty() && !this.txtMinutoHasta.getText().isEmpty()){
+				if (Integer.parseInt(this.txtHoraDesde.getText()+this.txtMinutoDesde.getText())<Integer.parseInt(this.txtHoraHasta.getText()+this.txtMinutoHasta.getText())) {
+					if (d.format(this.dateCh.getDate()).equals(hoy) || this.dateCh.getDate().compareTo(date)>=0){
+						this.elemDisp = this.ctrlRes.getDisponibles(this.mapearDeForm());
+						initDataBindings();
+					}else{JOptionPane.showMessageDialog(this, "La fecha seleccionada es anterior a la fecha actual");}
+				} else {
+					JOptionPane.showMessageDialog(this, "La hora desde es mayor o igual que la hora hasta");
+				}}
+			else {
+				JOptionPane.showMessageDialog(this, "Rellene todos los campos");
+			}
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(this, "Datos ingresados incorrectos");
+		}
+		catch (AppDataException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
+		catch (Exception e) {
+		JOptionPane.showMessageDialog(this, "Rellene todos los campos");
+	}
 	}
 
 	private void cargarListas() {
@@ -333,8 +358,10 @@ public class ABMCReserva extends JInternalFrame {
 			res.setId(Integer.parseInt(this.lblIdOculta.getText()));
 			}
 		res.setFecha(fechaa);
-		res.setHoraDesde(Integer.parseInt(this.txtHoraDesde.getText()+this.txtMinutoDesde.getText()));
-		res.setHoraHasta(Integer.parseInt(this.txtHoraHasta.getText()+this.txtMinutoHasta.getText()));
+		if(!this.txtHoraDesde.getText().isEmpty() && !this.txtMinutoDesde.getText().isEmpty()){
+		res.setHoraDesde(Integer.parseInt(this.txtHoraDesde.getText()+this.txtMinutoDesde.getText()));}
+		if(!this.txtHoraHasta.getText().isEmpty() && !this.txtMinutoHasta.getText().isEmpty()){
+		res.setHoraHasta(Integer.parseInt(this.txtHoraHasta.getText()+this.txtMinutoHasta.getText()));}
 		if (cboTipos.getSelectedIndex() != -1){
 			res.getElemento().setTipo((TipoElemento)this.cboTipos.getSelectedItem());}
 		if(!this.lblIdOculta2.getText().isEmpty()){
