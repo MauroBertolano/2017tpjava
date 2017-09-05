@@ -152,7 +152,8 @@ public class DataReserva {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 		String fecha = sdf.format(date);
 		try {
-			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select r.idReserva,r.fecha,r.hora,e.idElemento,e.nombreElemento,tp.nombre,r.detalle from reserva r inner join elemento e on r.idElemento=e.idElemento inner join tipoelemento tp on tp.id=e.id where r.fecha>?;");
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select r.idReserva,r.fecha,r.horaDesde,r.horaHasta,e.idElemento,e.nombreElemento,tp.nombre,r.detalle "
+					+ "from reserva r inner join elemento e on r.idElemento=e.idElemento inner join tipoelemento tp on tp.id=e.id where r.fecha>=?;");
 			stmt.setString(1, fecha);
 			rs = stmt.executeQuery();
 			if (rs != null) {
@@ -162,7 +163,8 @@ public class DataReserva {
 					r.getElemento().setTipo(new TipoElemento());
 					r.setId(rs.getInt("r.idReserva"));
 					r.setFecha(rs.getDate("r.fecha"));
-					r.setHoraDesde(rs.getInt("r.hora"));	
+					r.setHoraDesde(rs.getInt("r.horaDesde"));	
+					r.setHoraHasta(rs.getInt("r.horaHasta"));	
 					r.getElemento().setId(rs.getInt("e.idElemento"));
 					r.getElemento().setNombre(rs.getString("e.nombreElemento"));
 					r.getElemento().getTipo().setNombre(rs.getString("tp.nombre"));
