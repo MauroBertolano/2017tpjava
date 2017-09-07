@@ -14,6 +14,7 @@ import entidades.Elemento;
 import entidades.TipoElemento;
 import logica.ControladorElemento;
 import logica.ControladorTipoElemento;
+import util.ValorInvalido;
 
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -80,6 +81,22 @@ public class ABMCElemento extends JInternalFrame {
 				modificarClick();
 			}
 		});
+		
+		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				eliminarClick();
+			}
+		});
+		
+		JButton btnLimpiar = new JButton("Limpiar");
+		btnLimpiar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				limpiarClick();
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -89,7 +106,11 @@ public class ABMCElemento extends JInternalFrame {
 							.addContainerGap()
 							.addComponent(btnAgregar)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnModificar))
+							.addComponent(btnModificar)
+							.addGap(6)
+							.addComponent(btnEliminar)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnLimpiar))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(27)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
@@ -105,7 +126,7 @@ public class ABMCElemento extends JInternalFrame {
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 										.addComponent(cboTipo, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 										.addComponent(txtNombre))))))
-					.addContainerGap(116, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -125,11 +146,27 @@ public class ABMCElemento extends JInternalFrame {
 					.addGap(43)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnAgregar)
-						.addComponent(btnModificar))
+						.addComponent(btnModificar)
+						.addComponent(btnEliminar)
+						.addComponent(btnLimpiar))
 					.addContainerGap(46, Short.MAX_VALUE))
 		);
 		getContentPane().setLayout(groupLayout);
 		cargarListas();
+	}
+
+	protected void limpiarClick() {
+		this.lblIdOculta.setText("");
+		this.txtNombre.setText("");
+		this.cboTipo.setSelectedIndex(-1);
+	}
+
+	protected void eliminarClick() {
+			try {
+				ctrl.borrar(this.mapearDeForm());
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(this, "Error al eliminar elemento");
+			}
 	}
 
 	protected void modificarClick() {
@@ -143,8 +180,11 @@ public class ABMCElemento extends JInternalFrame {
 	protected void agregarClick() {
 		try {
 			this.ctrl.add(this.mapearDeForm());
+			JOptionPane.showMessageDialog(this, "Se agregó el elemento correctamente");
+		} catch (ValorInvalido e) {
+			JOptionPane.showMessageDialog(this, e.getMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	}
 

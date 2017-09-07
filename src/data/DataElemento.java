@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import entidades.Elemento;
 import entidades.TipoElemento;
+import util.ValorInvalido;
 
 public class DataElemento {
 	
@@ -47,10 +48,14 @@ public class DataElemento {
 		ResultSet keyResultSet = null;
 		try {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"insert into elemento(nombreElemento,idTipoElemento) values (?,?)",
+					"insert into elemento(nombreElemento,id) values (?,?)",
 					PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, ele.getNombre());
-			stmt.setInt(2, ele.getTipo().getId());
+			try {
+				stmt.setInt(2, ele.getTipo().getId());
+			} catch (Exception e) {
+				throw new ValorInvalido("Seleccione un tipo de elemento");
+			}
 			stmt.executeUpdate();
 			keyResultSet = stmt.getGeneratedKeys();
 			if (keyResultSet != null && keyResultSet.next()) {
