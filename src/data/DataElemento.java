@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import entidades.Elemento;
 import entidades.TipoElemento;
+import util.AppDataException;
 import util.ValorInvalido;
 
 public class DataElemento {
@@ -29,6 +30,39 @@ public class DataElemento {
 				ele.getTipo().setId(rs.getInt("id"));
 			}
 		} catch (SQLException e) {
+			throw e;
+		}
+		try {
+			if (rs != null)
+				rs.close();
+			if (stmt != null)
+				stmt.close();
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ele;
+	}
+	
+	public Elemento getById(Elemento el)throws Exception {
+		Elemento ele = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = FactoryConexion.getInstancia().getConn()
+					.prepareStatement("select idElemento, nombreElemento, nombre,id from elemento e inner join tipoelemento tp on e.idTipoElemento=tp.id where idElemento=?");
+			stmt.setInt(1, el.getId());
+			rs = stmt.executeQuery();
+			if (rs != null && rs.next()) {
+				ele = new Elemento();
+				ele.setId(rs.getInt("idElemento"));
+				ele.setNombre(rs.getString("nombreElemento"));
+				ele.setTipo(new TipoElemento());
+				ele.getTipo().setNombre(rs.getString("nombre"));
+				ele.getTipo().setId(rs.getInt("id"));
+			}
+		} catch (SQLException e) {
+			//
 			throw e;
 		}
 		try {
@@ -80,11 +114,13 @@ public class DataElemento {
     		try {
     			stmt=FactoryConexion.getInstancia().getConn()
     					.prepareStatement(
-    					"delete from elemento where nombre=?"
+    					"delete from elemento where idElemento=?"
     							
     					);
-    			stmt.setString(1, ele.getNombre());
-    			stmt.executeUpdate();   	
+    			stmt.setInt(1, ele.getId());
+    			if(!(stmt.executeUpdate()>0)){
+    				throw new AppDataException("No se encontró el elemento");
+    			}
     		} catch (SQLException e) {
     			e.printStackTrace();
     		}
@@ -107,7 +143,9 @@ public class DataElemento {
 			stmt.setString(1, ele.getNombre());
 			stmt.setInt(2, ele.getTipo().getId());
 			stmt.setInt(3, ele.getId());
-			stmt.executeUpdate();   	
+			if(!(stmt.executeUpdate()>0)){
+				throw new AppDataException("No se modificó ningun elemento");
+			}
 		} catch (SQLException e) {
 			throw e;
 		}

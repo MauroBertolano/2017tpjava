@@ -14,6 +14,7 @@ import entidades.Elemento;
 import entidades.TipoElemento;
 import logica.ControladorElemento;
 import logica.ControladorTipoElemento;
+import util.AppDataException;
 import util.ValorInvalido;
 
 import javax.swing.JTextField;
@@ -164,7 +165,10 @@ public class ABMCElemento extends JInternalFrame {
 	protected void eliminarClick() {
 			try {
 				ctrl.borrar(this.mapearDeForm());
-			} catch (Exception e) {
+				JOptionPane.showMessageDialog(this, "El elemento se borró correctamente");
+			}	catch (AppDataException e) {
+				JOptionPane.showMessageDialog(this, e.getMessage());
+			} 	catch (Exception e) {
 				JOptionPane.showMessageDialog(this, "Error al eliminar elemento");
 			}
 	}
@@ -172,7 +176,10 @@ public class ABMCElemento extends JInternalFrame {
 	protected void modificarClick() {
 		try {
 			ctrl.actualiza(this.mapearDeForm());
-		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, "El elemento se modificó correctamente");
+		}	catch (AppDataException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage());
+		}	catch (Exception e) {
 			JOptionPane.showMessageDialog(this, "Error al modificar elemento");
 		}
 	}

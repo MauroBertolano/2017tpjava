@@ -28,7 +28,7 @@ public class ControladorElemento {
 		this.dataEle.modificar(ele);
 	}
 	public void borrar(Elemento ele)throws Exception {
-		dataEle.remove(this.dataEle.getByNombre(ele));
+		dataEle.remove(ele);
 	}
 
 	public ArrayList<Elemento> getAll()throws Exception{		
