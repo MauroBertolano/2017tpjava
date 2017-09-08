@@ -23,13 +23,15 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Font;
 import javax.swing.JPasswordField;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Login extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtUsuario;
 	private JPasswordField txtContraseña;
-	Controlador ctrl = new Controlador();
+	private Controlador ctrl = new Controlador();
 
 	/**
 	 * Launch the application.
@@ -63,6 +65,14 @@ public class Login extends JFrame {
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a");
 		
 		txtUsuario = new JTextField();
+		txtUsuario.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_ENTER ){
+					mouseClick();
+				}
+			}
+		});
 		txtUsuario.setColumns(10);
 		
 		JButton btnIngresar = new JButton("Ingresar");
@@ -74,6 +84,14 @@ public class Login extends JFrame {
 		});
 		
 		txtContraseña = new JPasswordField();
+		txtContraseña.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				if(arg0.getKeyCode()==KeyEvent.VK_ENTER ){
+					mouseClick();
+				}
+			}
+		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
